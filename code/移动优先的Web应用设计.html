@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<!-- 方法有2：1）需要在本地部署并测试相关的属性，通过媒介查询，根据客户浏览器窗口的大小进行叶面优化并决定页面布局 -->
+<!-- 2）通过嗅探用户代理User Agent 进行叶面优化并决定页面布局-->
+<!-- 用户代理信息位于HTTP请求的头信息中，刻意标识发起请求的客户端的具体信息，包括处理器、操作系统版本、浏览器、渲染引擎、IP地址及其他标识信息 -->
+<!-- 一些站点可根据不同的移动设备类型或用户代理数据设计不同的显示样式，本方法需要服务器或客户端具有一定的智能 -->
+<!-- Accept:*/*
+Accept-Encoding:gzip, deflate, sdch
+Accept-Language:zh-CN,zh;q=0.8
+Cache-Control:no-cache
+Connection:keep-alive
+Cookie:BDUSS=nhoY1gwWG9JNXR4OGNZVDE1NEZxRTN0YjJXcG0xOURqZE5-M1RmcnNwNC1ja2xWQVFBQUFBJCQAAAAAAAAAAAEAAADjFfwoZGVuZ2h1aXF1YW4xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD7lIVU-5SFVW; BAIDUID=B08AB5CAA41C2F707C0C5CD46EE15D93:FG=1; PSTM=1433410285; BIDUPSID=F9FF9E6467DA019AC70A7A1C5533B125; MCITY=-%3A; BDRCVFR[feWj1Vr5u3D]=I67x6TjHwwYf0; H_PS_PSSID=16486_13289_1453_7477_12657_10812_14431_10213_12867_16284_16520_16322_16210_14953_16424_16279_16515_15863_16547_11629_13932_16242_10633; lssp=no; plus_lsv=bdecac14975cf366; PLUS=1; utn=2
+Host:m.baidu.com
+Pragma:no-cache
+Referer:http://m.baidu.com/?from=844b&pu=sz%401321_480&wpo=btmfast
+User-Agent:Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; LGMS323 Build/KOT49I.MS32310c) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.1599.103 Mobile Safari/537.36 -->
+
+<!-- 
+	Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+	Accept-Encoding:gzip, deflate, sdch
+	Accept-Language:zh-CN,zh;q=0.8
+	Connection:keep-alive
+	Cookie:BDUSS=nhoY1gwWG9JNXR4OGNZVDE1NEZxRTN0YjJXcG0xOURqZE5-M1RmcnNwNC1ja2xWQVFBQUFBJCQAAAAAAAAAAAEAAADjFfwoZGVuZ2h1aXF1YW4xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD7lIVU-5SFVW; BAIDUID=B08AB5CAA41C2F707C0C5CD46EE15D93:FG=1; PSTM=1433410285; BIDUPSID=F9FF9E6467DA019AC70A7A1C5533B125; MCITY=-%3A; BDRCVFR[feWj1Vr5u3D]=I67x6TjHwwYf0; H_PS_PSSID=16486_13289_1453_7477_12657_10812_14431_10213_12867_16284_16520_16322_16210_14953_16424_16279_16515_15863_16547_11629_13932_16242_10633; lssp=no; plus_lsv=bdecac14975cf366; PLUS=1; utn=2
+	Host:wap.baidu.com
+	Referer:http://zhidao.baidu.com/?idx=30000&ssid=0&from=844b&bd_page_type=1&uid=0&pu=sz%401321_1001%2Cta%40utouch_2_4.4_3_537&itj=34&device=mobile
+	User-Agent:Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; LGMS323 Build/KOT49I.MS32310c) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.1599.103 Mobile Safari/537.36
+ -->
+<head>
+	<title>移动优先的Web设计-先为移动设备设计站点，再适配有差异的不同PC设备</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<meta http-equiv="Content-Style-Type" content="text/css">
+  	<!-- 添加标题栏图标 -->
+  	<link rel="shortcut icon" href="./images/icon_16x16.ico" type="image/x-icon"/>
+  	<!-- Facebook Metadata /-->
+	<meta property="fb:page_id" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:description" content=""/>
+	<meta property="og:title" content=""/>
+
+	<!-- Google+ Metadata /-->
+	<meta itemprop="name" content="">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<!--  加入脚本文件 -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="./js/bootstrap.js"></script>
+	<!-- We highly recommend you use SASS and write your custom styles in sass/_custom.scss.
+		 However, there is a blank style.css in the css directory should you prefer -->	
+	<link rel="stylesheet" href="./css/bootstrap.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="./css/bootstrap-responsive.css" type="text/css" media="screen, projection">
+
+	<!-- add jquery mobile lib-->
+	<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" /> -->
+	<!-- // <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	// <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+	<style type="text/css"></style>
+</head>
+<body>
+<!-- data-role="page"是HTML5属性，jquery mobile通过它来生成样式、元素和组件 -->
+<div data-role="page" id="p0">
+
+	<div data-role="header" data-fullscreen="true">
+	<!-- 设置页头信息的样式，是否自适应，是否全屏 -->
+	<!-- <div data-role="header" data-position="fixed" data-fullscreen="true"> -->
+	<!-- 工具栏按钮设计 -->
+
+	  <a href="#" data-role="button">首页</a>
+	  <h4>欢迎来到我的主页</h4>
+	  <!-- 弹出收索对话框 -->
+	  <a href="#search" data-role="button" data-rel="dialog" data-transition="pop">搜索</a>
+	  <!-- 导航栏按钮 -->
+	  <div data-role="navbar">
+      <ul>
+        <li><a href="#pageone" class="ui-btn-active" data-icon="home">首页</a></li>
+        <li><a href="#pagetwo" data-icon="arrow-r">页面二</a></li>
+      </ul>
+    </div>
+	</div>
+	<div data-role="content">
+	<!-- 导航栏按钮 -->
+	    <div data-role="navbar">
+	      <ul>
+	        <li><a href="#" data-icon="plus">更多</a></li>
+	        <li><a href="#" data-icon="minus">更少</a></li>
+	        <li><a href="#" data-icon="delete">删除</a></li>
+	        <li><a href="#" data-icon="check">喜爱</a></li>
+	        <li><a href="#" data-icon="info">信息</a></li>
+	      </ul>
+	    </div>
+     <p>该例演示内容中的导航栏。</p>
+   </div>
+   <hr/>
+   <div data-role="content">
+	   <!-- 以下方法生成的按钮都是一样的 -->
+	   	<p>这里不同方法生成的按钮都是一样的！ </p>
+	   	<button data-icon="info" data-inline="true">HTML5 Button with data-icon</button>
+	   	<input data-icon="minus" data-mini="true" type="button" value="Input Button" data-inline="true">
+	   	<!-- 非移动版本的模版文件一般需要特定类型的Submit元素，虽不是真正的移动优先，但是不存在完美方案，仅存在更适合的方案 -->
+	   	<input data-icon="arrow-r" type="submit" value="Submit Button data-icon='arrow-r'" data-inline="true">
+	   	<!-- 设置data-mini="true"让按钮变小一些 -->
+	   	<a href="#" data-role="button" data-icon="check" data-mini="true" data-inline="true">Link Button with data-mini="true"</a>
+	   	<!-- 设置data-icon属性给按钮添加图标 -->
+	   	<a href="#" data-role="button" data-icon="arrow-l" data-inline="true">Link Button With data-icon="arrow-l"</a>
+	   	<!-- data-iconpos="" -可以给按钮图标设置上下左右位置，以及是否显示文本文字->
+	   	<!-- 设置data-iconpos="notext"属性给按钮设置仅显示图标 -->
+	   	<a href="#" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-inline="true">Link Button With data-iconpos="notext"</a>按钮上添加了 data-iconpos="notext" 和 data-inline="true" 属性，这里的小图标也是个按钮的呢，默认情况下，按钮会占据整个屏幕的宽度，可以通过 data-inline="true" 属性来进行修改
+		<hr/>
+
+	   	<!-- 控制分组元素 ,只需在外层新建div元素，并设置其 data-role="controlgroup" 属性即可实现，分为一组的元素会显示在一起，没有过大的间隔-->
+	   	<div data-role="controlgroup" data-theme="e">
+		   	<!-- 设置data-iconpos="notext"属性给按钮设置仅显示图标 -->
+		   	<a data-theme="b" href="#" data-role="button" data-icon="arrow-l" data-iconpos="top">Link Button With data-iconpos="top"</a>
+		   	<!-- 设置data-iconpos="notext"属性给按钮设置仅显示图标 -->
+		   	<a data-theme="c" href="#" data-role="button" data-icon="arrow-l" data-iconpos="left">Link Button With data-iconpos="left"</a>
+		   	<!-- 设置data-iconpos="notext"属性给按钮设置仅显示图标 -->
+		   	<a data-theme="e" href="#" data-role="button" data-icon="arrow-r" data-iconpos="right">Link Button With data-iconpos="right"</a>
+		   	<!-- 设置data-iconpos="notext"属性给按钮设置仅显示图标 -->
+		   	<a data-theme="a" href="#" data-role="button" data-icon="arrow-r" data-iconpos="bottom">Link Button With data-iconpos="bottom"</a>
+	   	</div>
+	   	<hr/>
+	   	<!-- 设计漂亮的按钮分组 ，添加 data-type="horizonal" 属性 -->
+	   	<div data-role="controlgroup" data-type="horizontal" align="center">
+		   	<!-- 设置data-iconpos="notext"属性给按钮设置仅显示图标 -->
+		   	<a href="#" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-inline="true" data-theme="a">Link Button With data-iconpos="top"</a>
+		   	<!-- 设置data-iconpos="notext"属性给按钮设置仅显示图标 -->
+		   	<a href="#" data-role="button" data-icon="minus" data-iconpos="notext" data-inline="true" data-theme="b">Link Button With data-iconpos="left"</a>
+		   	<!-- 设置data-iconpos="notext"属性给按钮设置仅显示图标 -->
+		   	<a href="#" data-role="button" data-icon="plus" data-iconpos="notext" data-inline="true" data-theme="c">Link Button With data-iconpos="right"</a>
+		   	<!-- 设置data-iconpos="notext"属性给按钮设置仅显示图标 -->
+		   	<a href="#" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-inline="true" data-theme="e">Link Button With data-iconpos="bottom"</a>
+	   	</div>
+   </div>
+   <hr/>
+   	<div data-role="content">
+	    <ul data-role="listview" data-inset="true" data-filter="true" data-theme="b">	      
+	        <li><a href="#" >更多</a></li>
+	        <li><a href="#" >更少</a></li>
+	        <li><a href="#" >删除</a></li>
+	        <li><a href="#" >喜爱</a></li>
+	        <li><a href="#" >信息</a></li>
+	    </ul>
+     <p>该例演示内容中的导航栏。</p>
+   </div>
+   <div data-role="content">
+      <div data-role="collapsible-set">
+        <div data-role="collapsible">
+	        <h3>点击我 - 我可以折叠！</h3>
+	  	    <ul data-role="listview" data-inset="true" data-filter="true" data-theme="a">	      
+		        <li><a href="#" >更多</a></li>
+		        <li><a href="#" >更少</a></li>
+		        <li><a href="#" >删除</a></li>
+		        <li><a href="#" >喜爱</a></li>
+		        <li><a href="#" >信息</a></li>
+		    </ul>
+        </div>
+        <div data-role="collapsible">
+	        <h3>点击我 - 我可以折叠！</h3>
+	        <ul data-role="listview" data-inset="true" data-filter="true" data-theme="e">	      
+		        <li><a href="#" >更多</a></li>
+		        <li><a href="#" >更少</a></li>
+		        <li><a href="#" >删除</a></li>
+		        <li><a href="#" >喜爱</a></li>
+		        <li><a href="#" >信息</a></li>
+		    </ul>
+        </div>
+       
+        <!-- <div data-role="collapsible">
+        <h3>点击我 - 我可以折叠！</h3>
+        <ul data-role="listview" data-inset="true" data-filter="true" data-theme="a">	      
+	        <li><a href="#" >更多</a></li>
+	        <li><a href="#" >更少</a></li>
+	        <li><a href="#" >删除</a></li>
+	        <li><a href="#" >喜爱</a></li>
+	        <li><a href="#" >信息</a></li>
+	    </ul>
+        </div> -->
+      </div>
+	<hr/>
+       <ul data-role="collapsible-set" data-theme="b" data-content-theme="e">
+        	<li data-role="collapsible">
+		        <h3> 我是可以折叠的列表！</h3>
+		        <p>给最外层的ul元素设置data-role=“collapsible-set”属性，接着给ul元素的两个直接li子元素设置data-role=“collapsible”属性。并给li元素的子元素ul设置data-role="listview"属性。</p>
+		        <ul data-role="listview" data-inset="true" data-filter="true" data-theme="e">	      
+			        <li><a href="#" >更多</a></li>
+			        <li><a href="#" >更少</a></li>
+			        <li><a href="#" >删除</a></li>
+			        <li><a href="#" >喜爱</a></li>
+			        <li><a href="#" >信息</a></li>
+			    </ul>
+		    </li>
+		    <li data-role="collapsible">
+		        <h3> 我是可以折叠的列表！</h3>
+		        <p>给最外层的ul元素设置data-role=“collapsible-set”属性，接着给ul元素的两个直接li子元素设置data-role=“collapsible”属性。并给li元素的子元素ul设置data-role="listview"属性。</p>
+		        <ul data-role="listview" data-inset="true" data-filter="true" data-theme="e">	      
+			        <li><a href="#" >更多</a></li>
+			        <li><a href="#" >更少</a></li>
+			        <li><a href="#" >删除</a></li>
+			        <li><a href="#" >喜爱</a></li>
+			        <li><a href="#" >信息</a></li>
+			    </ul>
+		    </li>
+        </ul>
+    </div>	
+    <hr/>	
+	<div data-role="content">
+	<!-- 设置列表，设置列表样式,设置过滤检索框-->
+		<ul data-role="listview" data-inset="true" data-filter="true" data-theme="c">
+			<li data-role="list-divider" data-filtertext="hehede"><a href="#pageone">Options Item</a></li>
+			<li data-role="list-divider">Bender
+				<ul data-filter="true" data-theme="e">
+				<li><a href="#p3">Hero 1</a></li>
+				<li><a href="#p1">Bender</a></li>
+				<li><a href="#p2">Options Item</a></li>
+				</ul>
+			</li>			
+					
+			<li data-role="list-divider">Worker Robot
+				 <ul data-filter="true" data-theme="a">
+					<li>Bender</li>
+					<li>Options Item</li>
+					<li data-filtertext="你好啊">Wall-E</li>
+					<li>Gort</li>
+					<li data-filtertext="我爱你">Gort</li>
+					<li>Hero 1</li>
+					<li data-filtertext="hehede"><a href="#p2">Options Item</a></li>
+					<li>Bender</li>
+				</ul> 
+			</li>				
+		</ul>
+	</div>
+	<!-- 只要在元素中添加HTML5的数据属性，Jquery Mobile 就会帮你完成繁杂的逻辑处理 Jquery Mobile利用这些数据属性为移动版本的页面重写HTML和CSS，JQuery Mobile会触发HTML5属性上特定的事件来添加指定样式到渲染的页面-->
+	<div data-role="footer" class="ui-btn" data-fullscreen="true">
+	<!-- <div data-role="footer" class="ui-btn" data-position="fixed" data-fullscreen="true"> -->
+	  <div data-role="controlgroup" data-type="horizontal">
+	    <a href="#" data-role="button" data-icon="plus">转播到新浪微博</a>
+	    <a href="#" data-role="button" data-icon="plus">转播到腾讯微博</a>
+	    <a href="#" data-role="button" data-icon="plus">转播到 QQ 空间</a>
+	  </div>
+	</div>
+	<div data-role="footer" data-position="fixed" data-fullscreen="true">
+	  <h1>
+		  <a href="#" data-role="button">转播到新浪微博</a>
+		  <a href="#" data-role="button">转播到腾讯微博</a>
+		  <a href="#" data-role="button">转播到 QQ 空间</a>
+	  </h1>
+	  <h4>CopyRight By <a href="mailto:denghuiquan@foxmail.com">@Deng Huiquan</a> 2012-2016.</h4>
+	</div>	
+</div>
+
+<div data-role="page" id="search">
+  <div data-role="content">
+  	<h3>其输入搜索关键字</h3>
+    <ul data-role="listview" data-inset="true" data-filter="true" data-theme="c">	      
+        <li><a href="#" >更多</a></li>
+        <li><a href="#" >更少</a></li>
+        <li><a href="#" >删除</a></li>
+        <li><a href="#" >喜爱</a></li>
+        <li><a href="#" >信息</a></li>
+    </ul>
+    <a href="#p0" data-mini="true" data-role="button" data-icon="arrow-l" data-theme="e" align="center">返回首页</a>
+  </div>
+  <div data-role="footer">
+  	<h4>CopyRight By <a href="mailto:denghuiquan@foxmail.com">@Deng Huiquan</a> 2012-2016.</h4>		
+  </div>
+</div>
+
+<div data-role="page" id="pageone">
+  <div data-role="content">
+    <h2>请点击箭头图标！</h2>
+    <!-- 似乎默认的 data-theme="c" -->
+    <ul data-role="listview" data-inset="true" data-theme="c">
+      <li data-role="divider">Browsers</li>
+      <li>
+        <a href="#download">
+        <img src="./img/chrome.png">
+        <h2>Google Chrome</h2>
+        <p>Google Chrome is a free, open-source web browser. Released in 2008.</p>
+        </a>
+        <a href="#download" data-rel="dialog" data-transition="pop">Download Browser</a>
+      </li>
+      <li>
+        <a href="#download">
+        <img src="./img/firefox.png">
+        <h2>Mozilla Firefox</h2>
+        <p>Firefox is a web browser from Mozilla. Released in 2004.</p>
+        </a>
+        <a href="#download" data-rel="dialog" data-transition="pop">Download Browser</a>
+      </li>
+    </ul>
+    <a href="#p0" data-mini="true" data-role="button" data-icon="arrow-l" data-theme="e" align="center">返回首页</a>
+  </div>
+</div> 
+<div data-role="page" id="download">
+  <div data-role="content">
+  <h3>拆分按钮实例</h3>
+    <p>该按钮仅供演示。</p>
+    <a href="#" data-role="button" data-rel="back" data-icon="check" data-inline="true" data-mini="true">下载</a>
+    <a href="#" data-role="button" data-rel="back" data-inline="true" data-mini="true">取消</a>
+    <hr/>
+    <a href="#p0" data-mini="true" data-role="button" data-icon="arrow-l" data-theme="e" align="center">返回首页</a>
+  </div>
+</div>
+
+<div data-role="page" id="pagetwo">
+	<div data-role="header">
+		<h1>Adding jQuery Mobile P1<a href="#p2">To Page 2</a></h1>
+	</div>
+	<div data-role="content">
+		<p>jQuery Mobile是jQuery 在手机上和平板设备上的版本。jQuery Mobile 不仅会给主流移动平台带来jQuery核心库，而且会发布一个完整统一的jQuery移动UI框架。支持全球主流的移动平台。<br/>尽管 jQuery Mobile 利用最新的 HTML5、CSS3 和 JavaScript，但并非所有移动设备都提供这样的支持。jQuery Mobile 的哲学是同时支持高端和低端设备，比如那些没有 JavaScript 支持的设备，尽量提供最好的体验。<br/>
+		jQuery Mobile 在设计时考虑了访问能力，它拥有 Accessible Rich Internet Applications (WAI-ARIA) 支持，以帮助使用辅助技术的残障人士访问 web 页面。</p>
+		<a href="#p2">To Page 2</a>
+		<hr/>
+		<a href="#p0" data-mini="true" data-role="button" data-icon="arrow-l" data-theme="e" align="center">返回首页</a>
+	</div>
+	<div data-role="footer">
+		<h4>CopyRight By <a href="mailto:denghuiquan@foxmail.com">@Deng Huiquan</a> 2012-2016.</h4>
+	</div>
+</div>
+
+<div data-role="page" id="p2">
+	<div data-role="header">
+		<h1><a href="#pagetwo">Back Page 1</a> Page1 jQuery Mobile <a href="#p3">To Page 3</a></h1>
+	</div>
+	<div data-role="content">
+		<p>jQuery Mobile是jQuery 在手机上和平板设备上的版本。jQuery Mobile 不仅会给主流移动平台带来jQuery核心库，而且会发布一个完整统一的jQuery移动UI框架。支持全球主流的移动平台。<br/>尽管 jQuery Mobile 利用最新的 HTML5、CSS3 和 JavaScript，但并非所有移动设备都提供这样的支持。jQuery Mobile 的哲学是同时支持高端和低端设备，比如那些没有 JavaScript 支持的设备，尽量提供最好的体验。<br/>
+		jQuery Mobile 在设计时考虑了访问能力，它拥有 Accessible Rich Internet Applications (WAI-ARIA) 支持，以帮助使用辅助技术的残障人士访问 web 页面。</p>
+		<a href="#p3">To Page 3</a>
+		<hr/>
+		<a href="#p0" data-mini="true" data-role="button" data-icon="arrow-l" data-theme="e" align="center">返回首页</a>
+	</div>
+	<div data-role="footer">
+		<h4>CopyRight By <a href="mailto:denghuiquan@foxmail.com">@Deng Huiquan</a> 2012-2016.</h4>
+	</div>
+</div>
+<div data-role="page" id="p3">
+	<div data-role="header">
+		<h1><a href="#p2">Back Page 2</a> Page2 jQuery Mobile</h1>
+	</div>
+	<div data-role="content">
+		<p>jQuery Mobile是jQuery 在手机上和平板设备上的版本。jQuery Mobile 不仅会给主流移动平台带来jQuery核心库，而且会发布一个完整统一的jQuery移动UI框架。支持全球主流的移动平台。<br/>尽管 jQuery Mobile 利用最新的 HTML5、CSS3 和 JavaScript，但并非所有移动设备都提供这样的支持。jQuery Mobile 的哲学是同时支持高端和低端设备，比如那些没有 JavaScript 支持的设备，尽量提供最好的体验。<br/>
+		jQuery Mobile 在设计时考虑了访问能力，它拥有 Accessible Rich Internet Applications (WAI-ARIA) 支持，以帮助使用辅助技术的残障人士访问 web 页面。</p>
+		<a href="#p2">Back Page 2</a>
+		<hr/>
+		<a href="#p0" data-mini="true" data-role="button" data-icon="arrow-l" data-theme="e" align="center">返回首页</a>
+	</div>
+	<div data-role="footer">
+		<h4>CopyRight By <a href="mailto:denghuiquan@foxmail.com">@Deng Huiquan</a> 2012-2016.</h4>
+	</div>
+</div>
+</body>
+</html>

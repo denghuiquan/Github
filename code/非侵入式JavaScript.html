@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>移动优先的Web设计-先为移动设备设计站点，再适配有差异的不同PC设备</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<meta http-equiv="Content-Style-Type" content="text/css">
+  	<!-- 添加标题栏图标 -->
+  	<link rel="shortcut icon" href="./images/icon_16x16.ico" type="image/x-icon"/>
+  	<!-- Facebook Metadata /-->
+	<meta property="fb:page_id" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:description" content=""/>
+	<meta property="og:title" content=""/>
+
+	<!-- Google+ Metadata /-->
+	<meta itemprop="name" content="">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<!--  加入脚本文件 -->
+	
+	<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="./js/bootstrap.js"></script> -->
+	<!-- We highly recommend you use SASS and write your custom styles in sass/_custom.scss.
+		 However, there is a blank style.css in the css directory should you prefer -->	
+	<!-- <link rel="stylesheet" href="./css/bootstrap.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="./css/bootstrap-responsive.css" type="text/css" media="screen, projection"> -->
+
+	<!-- add jquery mobile lib-->
+	<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" /> -->
+	<!-- // <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	// <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
+	<!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css"> -->
+	
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<!-- <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>  -->
+	
+	<style type="text/css">
+	.valid{
+		border: 2px solid #000;
+		-webkit-box-shadow:1px 1px 5px 3px #0000ff;
+		box-shadow: 1px 1px 5px 3px #0000ff;
+		text-shadow:1px 1px 1px #666666;
+		filter:dropshadow(color=#666666, offx=1, offy=1);
+		background-color: rgba(150,150,255,.8);
+		color: #cec;
+		-webkit-border-radius:5px;
+		border-radius: 5px;
+	}
+	.invalid{
+		border: 2px solid #ce0;
+		-webkit-box-shadow:1px 1px 5px 3px rgba(255,0,0,.7);
+		box-shadow: 1px 1px 5px 3px rgba(255,0,0,.7);
+		-webkit-filter:grayscale(0,.1) blur(1px);
+		-moz-transition:border 0.2s ease;
+		-ms-transition:border 0.2s ease;
+		-o-transition:border 0.2s ease;
+		transition:border 0.2s ease;
+		background-color: rgba(255,150,25,.8);
+		color: #cec;
+		-webkit-border-radius:5px;
+		border-radius: 5px;
+		text-shadow:1px 1px 1px #666666;
+		filter:dropshadow(color=#666666, offx=1, offy=1);
+	}
+	input#passwdsubmit,
+	input#submit{
+		background-color: blue;
+		color: white;
+		border-radius: 8px;
+		font-size: 14px;
+		padding: 5px 8px;
+	}
+
+	.buttonLight{
+		background-color: green !important;
+		-webkit-box-shadow:1px 1px 2px 1px green;
+		box-shadow: 1px 1px 2px 1px green;
+		text-shadow:1px 1px 2px #666666;
+		filter:dropshadow(color=#666666,offx=1,offy=1);
+	}
+	.redButtonLight{
+		background-color: red !important;
+		-webkit-box-shadow:inset 1px 1px 3px 2px 663535;
+		box-shadow:inset 1px 1px 3px 2px 663535;
+		text-shadow:0px 0px 2px #eee;
+		filter:dropshadow(color=#eee,offx=0,offy=0);
+	}
+	</style>
+	<!-- 为了避免HTML页面中内嵌用于事件处理的脚本，可以创建一个额外的JavaScript文件，该文件中设定一系列的事件监听器来绑定相关事件用于处理用户交互 -->
+	<!-- 非侵入式就是将JavaScript从HTML页面结构中抽离，实现展示层与逻辑控制层的分离 -->
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+		//  基于事件监听实现图像阴影的动态效果 
+		$("body").mousemove(function(e){
+			var imgHorz=($(".wrapyy img").offset().left);
+			var imgVert=($(".wrapyy img").offset().top);
+			if (e.pageX<imgHorz&&e.pageY<imgVert) {
+				$(".wrapyy img").removeClass();
+				$(".wrapyy img").addClass("bottomRight");
+			}else if (e.pageX>imgHorz&&e.pageY<imgVert) {
+				$(".wrapyy img").removeClass();
+				$(".wrapyy img").addClass("bottomLeft");
+			} else if (e.pageX>imgHorz&&e.pageY>imgVert) {
+				$(".wrapyy img").removeClass();
+				$(".wrapyy img").addClass("topLeft");
+			} else if (e.pageX<imgHorz&&e.pageY>imgVert){
+				$(".wrapyy img").removeClass();
+				$(".wrapyy img").addClass("topRight");
+			};
+		});
+
+
+		var foo="Hello World!";
+		$(":submit").click(function(){
+			formAction(foo,"bar");
+			var bar=$("input#bar").val();
+			buttonAnimate(bar);
+			$("input#bar").val("");
+		});	
+		$("#submit").click(function(){
+			formAction(foo,"bar");
+			var bar=$("input#bar").val();
+			$("input#bar").val("");
+		});
+
+	// 事件监听能够实现更多的逻辑，而非简单的CSS:hover选择器，不受CSS配置限制
+		$("#submit").mouseover(function(){
+			var classtoAdd="buttonLight";
+			var classtoMove="redButtonLight";
+			var paddingAdd="5px 8px 5px 9px";
+			$("#submit").animate({
+				opacity:0.7, padding:paddingAdd
+			},100,function(){
+				$("#submit").removeClass(classtoMove);
+				$("#submit").addClass(classtoAdd);
+			});
+		});	
+		$("#submit").mouseout(function(){
+			var classtoAdd="redButtonLight";
+			var classtoMove="buttonLight";
+			var paddingAdd="5px 9px 5px 7px";
+			$("#submit").animate({
+				opacity:1, padding:paddingAdd
+			},100,function(){
+				$("#submit").removeClass(classtoMove);
+				$("#submit").addClass(classtoAdd);
+			});
+		});
+
+		$("#passwdsubmit").mouseover(function(){
+			var classtoAdd="buttonLight";
+			var classtoMove="redButtonLight";
+			var paddingAdd="5px 8px 5px 9px";
+			$("#passwdsubmit").animate({
+				opacity:0.7, padding:paddingAdd
+			},100,function(){
+				$("#passwdsubmit").removeClass(classtoMove);
+				$("#passwdsubmit").addClass(classtoAdd);
+			});
+		});	
+		$("#passwdsubmit").mouseout(function(){
+			var classtoAdd="redButtonLight";
+			var classtoMove="buttonLight";
+			var paddingAdd="5px 9px 5px 7px";
+			$("#passwdsubmit").animate({
+				opacity:1, padding:paddingAdd
+			},100,function(){
+				$("#passwdsubmit").removeClass(classtoMove);
+				$("#passwdsubmit").addClass(classtoAdd);
+			});
+		});
+
+		measureWindow();
+
+		$(window).resize(function(){
+			measureWindow();
+		});
+
+		/*
+			<div class="passwd" id="passwd">
+				Your Name: <input id="username" type="text" placeholder="Enter Your Name Please"/><br/>
+				Your PsWd: <input id="pwd" type="password" placeholder="Enter Your Password Please"/>
+				<!-- 该输入框会在隐藏的输入框之上显示，使得用户感觉输入框和显示框是同一个，然后通过设置样式将密码输入框真正隐藏起来。 -->
+				<input id="altDisplay" type="text" disabled="disabled"/>
+				<br/>
+				<input id="passwdsubmit" type="button" value="Password Sure">
+			</div>
+		 */ 
+		$("#pwd").keyup(function(e){
+			// 并非所有触发事件的输入都是字符，这时需要将每个按键转换成一个数值表示，再根据数值编写逻辑判断，使得非字符型输入事件不会触发对应的事件。
+			if (e.which!=16 && e.which!=27 && e.which!=91 && e.which!=18 && e.which!=17 && e.which!=20&& e.which!=46) {
+				if (e.which!=8) {
+					// do something for the character key
+					var altDisplayVal=$("#altDisplay").val();
+					var passwdVal=$("#pwd").val();
+					var regAltDisplayVal=altDisplayVal.replace(/./g,"*");
+					var passwdValLastLetter=passwdVal.charAt(passwdVal.length-1);
+					$("#altDisplay").val(regAltDisplayVal+passwdValLastLetter);
+				} else{
+					// do something for the delete key
+					// 
+					var delLast=this.value.charAt(this.value.length-1);
+					var delTxt=this.value.slice(0,this.value.length-1);
+					var regDelTxt=delTxt.replace(/./g,"*");
+					$("#altDisplay").val(regDelTxt+delLast);
+				};
+			};
+
+			var timer = window.setTimeout(function(){
+				/*var altDisplayVal=$("#altDisplay").val();
+				var regAltDisplayVal=altDisplayVal.replace(/./g,"*");
+				$("#altDisplay").val(regAltDisplayVal);*/
+				$("#altDisplay").val($("#altDisplay").val().replace(/./g,"*"));
+			},500);//使用延迟执行方法 	
+			// window.clearTimeout(timer);//去掉定时器		
+		});		
+	});
+
+
+	function formAction(foo,id){
+		$(".newText").remove();
+		var bar=$("#"+id).val();
+		if (bar&&bar!="") {
+			$("#"+id).parent().append("<div class='newText'>"+bar+" says "+foo+"</div>");
+		}else{
+			$("#"+id).parent().append("<div class='newText'>"+"Please enter your name!"+"</div>");
+		}		
+	};
+	function buttonAnimate(bar){
+		if (bar!="") {
+			$(":submit").removeClass("invalid");
+			$(":submit").addClass("valid");
+		}else{
+			$(":submit").removeClass("valid");
+			$(":submit").addClass("invalid");
+			$("input#bar").focus(function(){
+				$(":submit").removeClass("invalid");
+			});
+		};
+	}
+
+	function replaceImage(size){
+		if(size=="min"){
+			if ($("img.scalable").attr("src").indexOf('max')>1) {
+				var newImgReplace=$("img.scalable").attr("src").replace("-max.","-min.");
+				$("img.scalable").attr({src:newImgReplace});
+			};
+		}else{
+			if ($("img.scalable").attr("src").indexOf('min')>1) {
+				var newImgReplace=$("img.scalable").attr("src").replace("-min.","-max.");
+				$("img.scalable").attr({src:newImgReplace});
+			};
+		}
+	}
+	function measureWindow(){
+		var getWindowWidth=$(window).width();
+		if (getWindowWidth<600) {
+			replaceImage("min");
+		}else{
+			replaceImage("max");
+		};
+	}
+	</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+	});
+	</script>
+	<style type="text/css">
+	div.wrap{
+		width: 75%;
+		margin-left: 12.5%;
+		height: auto;
+	}
+	div.wrap div:first-child{
+		float: left;
+		width: 48%;
+		background-color: #ccc;
+		padding: 1%;
+		color: rgba(51,51,51,1);
+		-webkit-transition:all 0.3s;
+		-moz-transition:all 0.3s;
+		-ms-transition:all 0.3s;
+		-o-transition:all 0.3s;
+		transition:all 0.3s;
+	}
+	div.wrap div:nth-child(2){
+		float: right;
+		width: 48%;
+		background-color: #666;
+		padding: 1%;
+		color: rgba(51,51,51,1);
+		-webkit-transition:all 0.3s;
+		-moz-transition:all 0.3s;
+		-ms-transition:all 0.3s;
+		-o-transition:all 0.3s;
+		transition:all 0.3s;
+	}
+	div.wrap div:first-child:hover{
+		width: 50%;
+		background-color: #202;
+		padding: 0%;
+		color: rgba(51,51,51,0.2);
+	}
+	div.wrap div:nth-child(2):hover{
+		width: 50%;
+		background-color: #b2b;
+		padding: 0%;
+		color: rgba(51,51,51,0.2);
+	}	
+	div.wrap div img{
+		width: 100%;
+		height: auto;
+	}
+	div#passwd{
+		text-align: left;
+		margin-left: 25%;
+		width: 50%;
+	}
+	input#pwd{
+		position: relative;
+		left: 0%;
+		background-color: transparent;
+		color: transparent;
+	}
+	input#altDisplay{
+		position: absolute;
+		margin-top: -20px;
+		float: left;
+		margin-left: 88px;
+		z-index: -100;
+	}	
+	</style>
+</head>
+<body>
+	<div>		
+		<input  id="bar" placeholder="Enter Your Name Please" type="text"/>
+		<input type="submit" value="Say Hello"/>	
+		<input type="button" id="submit" value="Animate Button"/>		
+	</div>
+	<hr/>
+	<div class="wrap">
+		<div>
+			<img src="./images/mm-min.jpg" class="scalable"/>
+		</div>		
+		<div>
+			<img src="./images/mm-min.jpg" class="scalable"/>
+		</div>		
+		<hr/>		
+	</div>
+	<hr/>	<!-- 密码遮罩效果 -->
+	<div class="passwd" id="passwd">
+		Your Name: <input id="username" type="text" placeholder="Enter Your Name Please"/><br/>
+		Your PsWd: <input id="pwd" type="password"/><br/>
+		<!-- 该输入框会在隐藏的输入框之上显示，使得用户感觉输入框和显示框是同一个，然后通过设置样式将密码输入框真正隐藏起来。 -->
+		<input id="altDisplay" type="text" disabled="disabled" placeholder="Enter Your Password Please"/>
+		<br/>
+		<input id="passwdsubmit" type="button" value="Password Sure">
+	</div>
+	<style type="text/css">
+	.wrapyy{
+		width: 30%;
+		margin: 0 auto;
+	}
+	.wrapyy img{
+		width: 100%;
+		height: auto;
+		margin: 80px 1%;
+		border-radius: 50%;
+		-webkit-border-radius: 50%;
+		border: 1px dotted #666;
+		-webkit-transition:all .5s linear;
+		-moz-transition:all .5s linear;
+		-ms-transition:all .5s linear;
+		-o-transition:all .5s linear;
+		transition:all .5s linear;
+		-kthtml-transition:all .5s linear;
+	}
+	img.topRight{
+		border-top: 5px solid #666;
+		border-right: 5px solid #666;
+		border-bottom: 5px solid #999;
+		border-left: 5px solid #999;
+		-webkit-box-shadow: 5px -5px 2px 2px #666;
+		box-shadow: 5px -5px 2px 2px #666;
+	}
+	img.topLeft{
+		border-top: 5px solid #666;
+		border-right: 5px solid #666;
+		border-bottom: 5px solid #999;
+		border-left: 5px solid #999;
+		-webkit-box-shadow: -5px -5px 2px 2px #666;
+		box-shadow: -5px -5px 2px 2px #666;
+	}
+	img.bottomLeft{
+		border-top: 5px solid #999;
+		border-right: 5px solid #999;
+		border-bottom: 5px solid #666;
+		border-left: 5px solid #666;
+		-webkit-box-shadow: -5px 5px 2px 2px #666;
+		box-shadow: -5px 5px 2px 2px #666;
+	}
+	img.bottomRight{
+		border-top: 5px solid #999;
+		border-right: 5px solid #666;
+		border-bottom: 5px solid #666;
+		border-left: 5px solid #999;
+		-webkit-box-shadow: 5px 5px 2px 2px #666;
+		box-shadow: 5px 5px 2px 2px #666;
+	}
+	</style>
+	<!-- 基于事件监听实现图像阴影的动态效果 -->	
+	<div class="wrapyy">
+		<img class="topRight" src="./images/mm-mid.jpg">
+	</div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 9]> <html class="no-js" lang="en" itemscope itemtype="http://schema.org/Product"><![endif]-->
+<head>
+	<title>Blueprint网格布局响应式框架</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<meta http-equiv="Content-Style-Type" content="text/css">
+  	<!-- 添加标题栏图标 -->
+  	<link rel="shortcut icon" href="./images/icon_16x16.ico" type="image/x-icon"/>
+  	<!-- Facebook Metadata /-->
+	<meta property="fb:page_id" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:description" content=""/>
+	<meta property="og:title" content=""/>
+
+	<!-- Google+ Metadata /-->
+	<meta itemprop="name" content="">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+	<!-- We highly recommend you use SASS and write your custom styles in sass/_custom.scss.
+		 However, there is a blank style.css in the css directory should you prefer -->	
+	<link rel="stylesheet" href="./css/imports.css" type="text/css" media="screen, projection">
+	<style type="text/css">
+	span{
+		color: red;
+		font-weight: bold;
+		font-size: 18px;
+	}
+	</style>
+</head>
+<body>
+<div class="navbar" id="nav1">
+	<div class="row">
+		<a class="toggle" gumby-trigger="#nav1 > .row > ul" href="#"><i class="icon-menu"></i></a>
+		<h1 class="four columns logo">
+			<a href="#">
+				<img src="img/gumby_mainlogo.png" gumby-retina />
+			</a>
+		</h1>
+		<ul class="eight columns">
+			<li><a href="http://digitalsurgeons.com">Features</a></li>
+			<li>
+				<a href="http://digitalsurgeons.com">Documentation</a>
+				<div class="dropdown">
+					<ul>
+						<li><a href="http://digitalsurgeons.com">Item</a></li>
+						<li><a href="#">Item</a></li>
+						<li><a href="#">Item</a></li>
+						<li>
+							<a href="#">I HAVE STUFF NESTED UNDER ME</a>
+							<div class="dropdown">
+								<ul>
+									<li><a href="http://digitalsurgeons.com">nested</a></li>
+									<li><a href="">nested</a></li>
+									<li><a href="">nested</a></li>
+									<li><a href="">nested</a></li>
+									<li><a href="">nested</a></li>
+								</ul>
+							</div>
+						</li>
+						<li><a href="#">Item</a></li>
+						<li><a href="#">Item</a></li>
+						<li><a href="#">Item</a></li>
+						<li><a href="#">Item</a></li>
+						<li><a href="#">Item</a></li>
+						<li><a href="#">Item</a></li>
+						<li><a href="#">Item</a></li>
+					</ul>
+				</div>
+			</li>
+			<li><a href="#">Customize</a></li>
+			<li class="field"><input class="search input" type="search" placeholder="Search" /></li>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<nav class="pretty navbar" gumby-fixed="top" id="prettynav">
+		<a href="#" class="toggle" gumby-trigger="#prettynav>ul"><!-- <img src="./images/icon_16x16.ico"> --><i class="icon-menu"></i></a>
+		<h1 class="four columns logo">
+			<a href="#">
+				<img src="./images/u1.png" gumby-retina />
+			</a>
+		</h1>
+		<ul class="eight columns">
+			<li>
+				<a href="#">First Item</a>
+				<div class="dropdown">
+					<ul>
+						<li><a href="#">First Dropdown Item</a></li>
+						<li><a href="#">Second Dropdown Item</a></li>
+						<li><a href="#">Third Dropdown Item</a>
+							<div class="dropdown">
+								<ul>
+									<li><a href="">nested</a></li>
+									<li><a href="">nested</a></li>
+									<li><a href="">nested</a></li>
+									<li><a href="">nested</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<a href="#">Second Item</a>					
+			</li>
+			<li>
+				<a href="#">Third Item</a>					
+			</li>
+			<li><a href="#">Fourth Item</a></li>
+			<li class="field"><input class="search input" type="search" placeholder="Search" /></li>
+		</ul>
+	</nav>
+</div>
+<div class="navcontain">
+	<div class="pretty navbar" gumby-fixed="top" id="nav3">
+		<div class="row">
+			<a class="toggle" gumby-trigger="#nav3 > .row > ul" href="#"><i class="icon-menu"></i></a>
+			<h1 class="four columns logo">
+				<a href="#">
+					<img src="./images/u1.png" gumby-retina />
+				</a>
+			</h1>
+			<ul class="eight columns">
+				<li><a href="#">Features</a></li>
+				<li>
+					<a href="#">Documentation</a>
+					<div class="dropdown">
+						<ul>
+							<li><a href="#">Item</a></li>
+							<li><a href="#">Item</a></li>
+							<li><a href="#">Item</a></li>
+							<li><a href="#">Item</a></li>
+							<li><a href="#">Item</a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="#">Customize</a></li>
+				<li class="field"><input class="search input" type="search" placeholder="Search" /></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="container grid_12">
+<!-- row会占据12列的宽度 -->	
+	<div class="row">
+		<div class="four columns"><p><span>four columns#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+		<div class="three columns"><p><span>three columns#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+		<div class="five columns"><p><span>five columns#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+	</div>
+	<hr/>
+	<div class="row">
+		<div class="two columns"><p><span>two columns#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+		<div class="two columns"><p><span>two columns#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+		<div class="two columns"><p><span>two columns#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+		<div class="two columns"><p><span>two columns#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+		<div class="two columns"><p><span>two columns#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+		<div class="two columns"><p><span>two columns#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+	</div>
+	<hr/>
+	<div class="row">
+		<div class="two columns"><p><span>two columns#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+		<!-- 类push_four利用智能的left-margin系统设置元素的为伪居中 -->
+		<div class="six columns push_four"><p><span>six columns push_four#</span> 网站制作总是离不开布局，固定布局、流体布局、弹性布局这几种是大家常见的布局方式，以及现在越来越多的Responsive布局。布局方法很多，但有没有想过用最简单的方法让你随时能做到应付自如呢？其实有的，很多人都在使用网格布局系统，使用一套成熟的网络系统，让自己一劳永逸。</p></div>
+	</div>
+	<hr/>
+</div>
+<div class="grid_16"></div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<!-- <script type="text/javascript" src="./js/libs/gumby.min.js"></script> -->
+<script type="text/javascript" src="./js/plugins.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
+</body>
+</html>

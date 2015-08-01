@@ -1,0 +1,33 @@
+.container{
+	width: 960px;
+}
+
+/*get技巧：为了能够将样式应用到Blueprint CSS网格布局所有含有span-x的列，应该使用通配符*的属性选择器*/
+div[class*='span-']{
+	margin-left:2%; 
+	-moz-transition:width 0.1s;/*Firefox 4*/
+	-o-transition:width 0.1s;/*Opera*/
+	-webkit-transition:width 0.1s;/*Safari and Chrome*/
+	-ms-transition:width 0.1s;/*IE*/
+	transition:width 0.1s;/*default*/
+}
+/*blue print css框架会自动添加内边框*/
+@media screen and (max-width: 600px){
+	div[class*='span-']{
+		width: 90%;
+	}
+	.container{
+		width: 100%;
+	}
+}
+@media screen and (min-width: 601px) and (max-width: 1024px){
+	div[class*='span-']{
+		width: 42%;
+	}
+	div[class*='span-'].wide{
+		width: 90%;
+	}
+	.container{
+		width: 100%;
+	}
+}

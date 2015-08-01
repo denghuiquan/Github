@@ -1,0 +1,44 @@
+/*通过添加媒介查询来重载div元素的样式属性，从而得到响应式布局效果*/
+/*值得注意的是：应在grid.css文件之后加载该文件，才能产生重载的效果*/
+/*并且在本文件中，使用的是显式命名空间*/
+@media screen and (max-device-width: 420px) and (orientation:landscape){
+	.break-column{
+		min-width: 360px;
+	}
+}
+@media screen and (max-device-width: 420px) and (orientation:portrait){
+	.grid_1.break-column,.grid_2.break-column,.grid_3.break-column,.grid_5.break-column{
+		width: 48%;
+	}
+}
+@media screen and (min-device-width: 421px) and (max-device-width: 600px) and (orientation:portrait){
+	.grid_1.break-column,.grid_2.break-column,.grid_3.break-column,.grid_5.break-column{
+		width: 48%;
+	}
+}
+@media screen and (min-device-width: 601px) and (max-device-width: 1024px){
+	.break-column{
+		width: 30% !important;
+	}
+}
+@media screen and (max-width: 420px){
+	.break-column{
+		min-width: 360px;
+	}
+}
+@media screen and (max-width: 420px){
+	.grid_1.break-column,.grid_2.break-column,.grid_3.break-column,.grid_5.break-column{
+		width: 48%;
+	}
+}
+@media screen and (min-width: 601px) and (max-width: 1024px){
+	.break-column{
+		width: 30% !important;
+		/*!important 用于声明提升重载等级*/
+	}
+}
+span{
+	color: red;
+	font-size: 18px;
+	font-weight: bold;
+}
