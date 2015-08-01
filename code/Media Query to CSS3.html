@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="shortcut icon" type="image/x-icon" href="./images/icon_16x16.ico">
+	<title>Media Query to CSS3</title>
+</head>
+<style type="text/css">
+	/*设置打印机*/
+	@media print{
+		body{
+			background-color: #f0f0f0;
+			/*font: 24px Arial;*/
+		}
+	}
+	/*横竖屏判断标准：判断的是宽高比是否大于1*/
+	/*设置竖屏显示样式，对于各种设备适用*/
+	@media (orientation:portrait){
+		body{
+			/*font: 1rem "微软雅黑";*/
+			background-color: #cecece;
+		}
+	}
+	/*设置横屏显示样式，对于各种设备适用*/
+	@media (orientation:landscape){
+		body{
+			/*font: 3rem "微软雅黑";*/
+		}
+	}
+	/*基于height和width的媒介查询允许设置针对特定大小屏幕的样式*/
+	@media (height: 500px){
+		body{
+			/*font: 16px "微软雅黑";*/
+			background-color: #aeaeae;
+		}
+	}
+	/*device-xxxx媒介查询回个所有的页面施加同样的样式，无论浏览器的窗口大小如何改变，以指定的大小的设备上渲染页面*/
+	@media (device-width: 500px){
+		body{
+			/*font: 22px "微软雅黑";*/
+			background-color: #1e1e1e;
+		}
+	}
+	/*媒介查询用于对16/9比率的设备窗口（非print类型）进行样式设计*/
+	@media screen and(device-aspect-ratio: 16/9){
+		body{
+			/*font: 22px "微软雅黑";*/
+			background-color: #6633aa;
+		}
+	}
+	/*适用于采用电视作为视频输出的设备*/
+	@media tv{
+		body{
+			/*font: 22px "微软雅黑";*/
+			background-color: #3399aa;
+		}
+	}
+	/*媒介查询中，最为有用的两个属性：min-width 和max-width
+	基于该属性的媒介查询能为任何窗口大小的设备设置响应式样式，这其中也包括那些屏幕很小的移动设备；
+	设计时，首先设置的是最小屏幕的相关样式，最后通过min-width来适配最大尺寸的屏幕设备	*/
+	@media screen and (max-width: 520px){
+		*{
+			color: #330000;
+		}
+	}
+	@media screen and (min-width: 521px) and (max-width: 960px){
+		*{
+			color: #660000;
+		}
+	}
+	@media screen and (min-width: 961px) and (max-width: 1280px){
+		*{
+			color: #660066;
+		}
+	}
+	@media screen and (min-width: 1281px){
+		*{
+			color: #000066;
+		}
+	}
+
+	/*真正的样式设计*/
+	@media tv{
+		body{
+			color: blue;
+		}
+		h1{
+			font-weight: bold;
+			font-size: 140%;
+		}
+		img{
+			float: left;
+			width: 20%;
+			height: auto;
+			border: 2px solid #ccc;
+			margin:2%;
+		}
+		p{
+			width: 62%;
+			float: right;
+			font-size: 110%;
+			padding: 2%;
+		}
+	}
+	@media screen and (max-width: 520px){
+		h1{
+			font-weight: bold;
+			font-size: 180%;
+			text-align: center;
+		}
+		.wrap img{
+			width: 90%;
+			height: auto;
+			padding: 5%;
+		}
+		.wrap p{
+			width: 90%;
+			padding: 5%;
+			text-align: justify;
+		}
+		.split-line{
+			margin-left: 5%;
+			width: 90%;
+			height: 2px;
+			background-color: #000000;
+		}
+	}
+	@media screen and (min-width: 521px) and (max-width: 960px){
+		body{
+			color: #000;
+		}
+		h1{
+			font-weight: bold;
+			font-size: 120%;
+		}
+		img{
+			float: right;
+			width: 16%;
+			height: auto;
+			border: 2px solid #ccc;
+			margin:1%;
+			padding: 1%;
+		}
+		p{
+			width: 79%;
+			float: left;
+			font-size: 60%;
+		}	
+		/*基于媒介查询隐藏元素 法1：将元素设置为不可见，即设置属性：｛display：none;｝*/
+		footer{
+			display: none;
+		}	
+	}
+
+	@media screen and (min-width: 961px) and (max-width: 1280px){
+		body{
+			color: #000000;
+		}
+		h1{
+			font-weight: bold;
+			font-size: 120%;
+		}
+		img{
+			float: right;
+			width: 19%;
+			height: auto;
+			border: 2px solid #ccc;
+			margin:1%;
+			padding: 1%;
+		}
+		p{
+			width: 76%;
+			float: left;
+			font-size: 60%;
+		}
+		/*基于媒介查询隐藏元素 法2：将元素渲染在页面之外，这种方法会留下元素，占据空白*/
+		/*无论是绝对定位还是浮动都没有高度属性，应用于某个元素，该元素不会占据任何垂直的空间区域，
+		浮动布局带来的问题可通过给元素添加clear:both;属性来解决*/
+		footer{
+			float: left;
+			/*需要结合float以得到更好的隐藏效果，避免残留空白*/
+			margin-left: -5000px;
+		}
+	}
+	@media screen and (min-width: 1281px){
+		body{
+			color: #000000;
+		}
+		h1{
+			font-weight: bold;
+			font-size: 120%;
+		}
+		img{
+			float: right;
+			width: 20%;
+			height: auto;
+			border: 2px solid #ccc;
+			margin: 1%;
+			padding: 1%;
+		}
+		p{
+			width: 70%;
+			float: left;
+			font-size: 100%;
+		}
+		footer{
+			display: none;
+		}
+		/*p{
+			margin-left: -10000px;
+		}*/
+	}
+	footer{
+		background-color: #669999;
+		padding-top:4px;
+		padding-bottom:4px;
+		font: 18px "Arial News Roman";
+		color: #660000;
+		text-align: center;
+		width: 100%;
+	}
+	.CopyRight:before{
+		content: "CopyRight By ";
+	}
+	.CopyRight:after{
+		content: " All Reverse 2012-2016.";
+	}	
+</style>
+<script type="text/javascript">
+	
+// </script>
+<body>
+<h1>Add edia Query to Your CSS3</h1>
+<div class="split-line"></div>
+<div class="wrap">
+	<img src="./images/u1.png"/>
+	<p>常见媒体查询<br/>
+因为 Apple 首次向市场推出了用户智能手机和平板电脑产品，所以下列大多数媒体查询都是基于这些型号的设备。<br/>
+如果目标是横向模式智能手机，则使用： @media (min-width: 321px) { ... }<br/>
+如果目标是纵向模式智能手机，则使用： @media (max-width: 320px) { ... }<br/>
+如果目标是横向模式 Apple iPad，则使用： @media (orientation: landscape) { ... }<br/>
+如果目标是纵向模式 iPad，则使用： @media (orientation: portrait) { ... }<br/>
+您可能已经注意到了，iPad 上使用的是 orientation 媒体特性，而 width 用于 Apple iPhone 之上。主要是因为 iPhone 不支持 orientation 媒体特性。您必须使用 width 模拟这些方向断点。请参阅 参考资料，获取有关常见媒体特性的更多信息。
+</p></div>
+<!-- 页面的版权底部导航制作 -->
+<footer><span class="CopyRight"><a href="mailto:denghuiquan@foxmail.com">@Deng Huiquan </a></span></footer>
+</body>
+</html>

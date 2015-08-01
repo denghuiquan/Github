@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>仅通过媒介查询实现移动版本的样式表</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  	<meta http-equiv="Content-Style-Type" content="text/css">
+  	<!-- 添加标题栏图标 -->
+  	<link rel="shortcut icon" href="./images/icon_16x16.ico" type="image/x-icon"/>
+  	<!-- Facebook Metadata /-->
+	<meta property="fb:page_id" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:description" content=""/>
+	<meta property="og:title" content=""/>
+
+	<!-- Google+ Metadata /-->
+	<meta itemprop="name" content="">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<!--  加入脚本文件 -->
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<!-- 除开JavaScript，在客户端就没有其他方法来判断用户代理信息并选择适当的逻辑来为移动浏览器渲染页面，最接近的莫过于使用媒介查询来实现渲染移动设备的特定样式 -->
+	<!-- 这里设置的是杀手级的媒介查询来锁定移动浏览器，然后设置特定的CSS -->
+	<!-- 将媒介查询放置在HTML的头部链接中，只有在特定的情况下才会使用那些指定的CSS样式，可以在移动优先的设计中大显神威 -->
+	<link rel="stylesheet" media="screen and (max-device-width:480px)" href="./css/mobile.css" />
+	<!-- 仅为移动设备添加JavaScript功能特效 -->
+	<!-- 首要任务是判断设备是不是移动设备 -->
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+	
+	<!-- 关键在于利用脚本，判断屏幕宽度，如果满足条件，则下载相应的Jquery Mobile文件，首先使用Jquery 使得页面加载后触发特定函数 -->
+	<style type="text/css">
+	html{
+		font-size: 100%;
+	}
+	</style>
+	<!-- <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script> -->
+	<!-- javascript实现等同功能 ：好方式是：调用Jquery的$.getScript()函数-->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if (window.screen.width<600) {
+				// 动态加载网络文件
+				$.getScript("http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js");
+			};
+		});
+	</script>
+</head>
+<body>
+<div data-role="page" id="search">
+  <div data-role="content">
+  	<h3>其输入搜索关键字</h3>
+    <ul data-role="listview" data-inset="true" data-filter="true" data-theme="c">	      
+        <li><a href="#" >更多</a></li>
+        <li><a href="#" >更少</a></li>
+        <li><a href="#" >删除</a></li>
+        <li><a href="#" >喜爱</a></li>
+        <li><a href="#" >信息</a></li>
+    </ul>
+    <a href="#p0" data-mini="true" data-role="button" data-icon="arrow-l" data-theme="e" align="center">返 回</a>
+  </div>
+	<p class="a">Bootstrap - 简洁、直观、强悍、移动设备优先的前端开发框架,让web开发更迅速、简单。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。Bootstrap - 简洁、直观、强悍、移动设备优先的前端开发框架,让web开发更迅速、简单。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。Bootstrap - 简洁、直观、强悍、移动设备优先的前端开发框架,让web开发更迅速、简单。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。</p>
+	<p class="b">Bootstrap - 简洁、直观、强悍、移动设备优先的前端开发框架,让web开发更迅速、简单。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。Bootstrap - 简洁、直观、强悍、移动设备优先的前端开发框架,让web开发更迅速、简单。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。Bootstrap - 简洁、直观、强悍、移动设备优先的前端开发框架,让web开发更迅速、简单。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。Bootstrap - 简洁、直观、强悍、移动设备优先的前端开发框架,让web开发更迅速、简单。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。</p>
+	  <div data-role="footer">
+	  	<h4>CopyRight By <a href="mailto:denghuiquan@foxmail.com">@Deng Huiquan</a> 2012-2016.</h4>		
+	  </div>
+  </div>
+</body>
+</html>

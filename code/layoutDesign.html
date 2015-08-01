@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<!-- 添加Icon -->
+	<link rel="shortcut icon" type="image/x-icon" href="./images/icon_16x16.ico">
+	<title>响应式布局设计</title>
+	<style type="text/css">
+	article{
+		width: 100%;
+		max-width: 1280px;
+		margin: 0 auto;
+	}
+	h1{
+		text-align: center;
+	}
+	img{
+		width: 100%;
+		height: auto;
+	}
+	div:nth-of-type(odd){
+		background-color: #99CC99;
+	}
+	div:nth-of-type(even){
+		background-color: #99CCFF;
+	}
+	.float{
+		max-width: 300px;
+		float: left;
+		/*设置文本位置自动调整*/
+		text-align: justify;
+		margin: 2px;
+		padding: 8px;
+	}
+	</style>
+	<script type="text/javascript">
+	</script>
+</head>
+<body>
+<article>
+	<h1>Responsive Layout with min and max width</h1>
+	<div class="one float"><img src="./images/u1.png"></div>
+	<div class="two float">最小宽度(min-width)与最大宽度(max-width)用于设置图片最小最大宽度限制比较多。比如一个图片为主列表，对象里图片大小不定时候，为了不想让他太小不统一这个时候我们可以使用css最小宽度样式。再如，一个盒子里有文章有图片混排的时候，有时图片宽度不能确定，这个时候如果html img图片宽度超出了div盒子宽度，可能图片就会撑破div盒子造成图片混乱。</div>
+	<div class="three float">我们设置2个div盒子，分别设置最大与最小宽度样式、同时设置css边框为1px css颜色为红色的实线盒子、css高度为100px。第一和第二个盒子CSS命名分别为divcss5-min-width、.divcss5-max-width；第一个盒子内图片原图片大小为宽为165px 高度60px；第二个盒子内图片原图片大小为宽度为375px 高度65px。</div>
+	<div class="four float">我们设置两个盒子一个“divcss5-min-width”设置对象里img图片最小宽度为200px，而实际图片只有165px，所以图片被拉伸到200px；一个“divcss5-max-width”设置对象里img图片最大宽度为200px限制，而实际对象里图片宽度是375px，这个时候我们设置了此图片最大宽度为200px,所以图片被CSS max-height缩小到200px</div>
+	<div class="firth float">Css max-width与css min-width可以同时在一个CSS选择器使用设置一个对象最大最小宽度样式。一般对图片对象设置此两项样式比较多，但在IE6中不支持此两个属性，IE7及以上浏览器均支持，这个时候我们需要IE6支持兼容CSS min-width、ie6兼容max-width方法。</div>
+</article>
+</body>
+</html>

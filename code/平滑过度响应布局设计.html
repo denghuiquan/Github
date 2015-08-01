@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="shortcut icon" type="image/x-icon" href="./images/icon_16x16.ico">
+	<title>平滑过渡的响应式布局设计</title>
+<style type="text/css">
+	body{
+		margin: 0;
+		padding: 0;
+	}
+	nav .small-menu img{
+		width: 9%;
+		height: auto;
+		float: left;
+		padding: 0 2%;
+	}
+	li{
+		text-align: left;
+	}
+	nav .small-menu select{
+		margin: 3%;
+		width: 80%;
+	}
+	.main-img{
+		width: 100%;
+		height: auto;
+	}
+	nav ul{
+		list-style-type: none;
+		text-align: right;
+		margin-right: 8%;
+	}
+	/*设置圆角导航栏项*/
+	nav ul li{
+		display: inline;
+		background-color:rgba(102,153,153,.5);
+		margin-top:0px;
+		margin-left:2px;
+		margin-right:1px;
+		padding: 8px 3px 8px 0px;
+		border-radius:8px 8px 1px 1px;
+		text-align: center;
+		/*等价于
+		border-top-left-radius:8px;
+		border-top-right-radius:8px;
+		border-bottom-right-radius:1px;
+		border-bottom-left-radius:1px;
+		*/
+		-webkit-trasition:all .3s;
+		-moz-trasition:all .3s;
+		-ms-trasition:all .3s;
+		-o-trasition:all .3s;
+		transition:all .3s;
+	}
+	nav ul li:hover{
+		background-color:rgba(3,52,103,.7);
+		border-radius:5px 5px 5px 5px;
+		text-decoration: underline;
+		color: #330000;
+		/*等价于
+		border-top-left-radius:8px;
+		border-top-right-radius:8px;
+		border-bottom-right-radius:1px;
+		border-bottom-left-radius:1px;
+		*/
+	}
+	footer{
+		/*background-color: #669999;*/
+		padding-top:4px;
+		padding-bottom:4px;
+		font: 18px "Arial News Roman";
+		color: #660000;
+		text-align: center;
+		width: 100%;
+	}	
+	.CopyRight:before{
+		content: "CopyRight By ";
+	}
+	.CopyRight:after{
+		content: " All Reverse 2012-2016.";
+	}
+	.clear{
+		clear: both;
+	}
+	.img-search{
+		width: 100%;
+	}
+	.img-search img{
+		width: 100%;
+		height: auto;
+	}
+	.search{
+		position: absolute;
+	}
+	.top-menu{
+		height: 33px;
+		background-color: #ccc;		
+	}
+	.logo img{
+		height: 87px;
+		float: left;
+	}
+	.top-menu nav li{
+		display: inline-block;
+	}
+	.large-menu ul{
+		margin: 0 5px;
+	}
+	.large-menu li{
+		display: inline;
+	}
+	.flip-tab{
+		width: 100%;
+		height: 54px;
+		text-align: center;
+	}
+	.teasers{
+		max-width: 1070px;
+	}
+	.teaser{
+		float: left;
+	}
+	.contact-us{
+		float: left;
+	}
+	.cities{
+		float: left;
+	}
+	.footer-wrap{
+		width: 100%;
+		max-width: 1070px;
+		margin: 0 10%;
+		display: inline-block;
+	}
+	.footer-third{
+		display: inline-block;
+	}
+
+	@media screen and (max-width: 600px){		
+		nav .small-menu{
+			display: inline;
+		}
+		nav .large-menu{
+			display: none;
+		}
+		.search{
+			margin-top: 87px;
+			left: 22%;
+		}
+		.teaser{
+			width: 100%;
+		}
+		.contact-us{
+			width: 100%;
+		}
+		.cities{
+			width: 100%;
+		}
+		.footer-third{
+			width: 100%;
+		}
+	}
+	@media screen and (min-width: 601px) and(max-width: 1280px){		
+		.search{
+			margin-top: 144px;
+			left: 40%;
+		}		
+		.contact-us{
+			width: 40%;
+		}
+		.cities{
+			width: 60%;
+		}
+	}
+	@media screen and (min-width: 601px){
+		nav .small-menu{
+			display: none;
+		}
+		nav .large-menu{
+			display: inline;
+		}
+		.teaser{
+			width: 32%;
+			min-width: 144px;
+		}
+		.footer-third{
+			float: left;
+			width: 33%;
+			min-width: 144px;
+		}
+	}
+	@media screen and (max-width: 1280px){
+		header,.content{
+			width: 100%;
+		}
+	}
+	@media screen and (min-width: 1281px){
+		header{
+			float: left;
+			width: 60%;
+		}
+		.content{
+			float: right;
+			width: 40%;
+		}
+		.search{
+			margin-top: 144px;
+			left: 22%;
+		}
+	}
+	@media screen and (min-width: 1281px) and (max-width: 1366px){		
+		.contact-us{
+			width: 100%;
+		}
+		.cities{
+			width: 100%;
+		}
+	}
+	@media screen and (min-width: 1367px){		
+		.contact-us{
+			width: 40%;
+		}
+		.cities{
+			width: 60%;
+		}
+	}	
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	var smallMenu='<div class="menu small-menu"><img src="./images/u1.png"><form><select name="URL" onchange="window.location.href=this.URL.options[this.form.URL.selectedIndex].value"><option value="MyBlog.html">MyBlog</option><option value="index.html">Home page</option><option value="layoutDesign.html">Layout Design</option></select></form></div>';
+		$(document).ready(function(){
+			$('.large-menu').remove();
+			$('header>nav').append(smallMenu);
+		});
+</script>
+</head>
+<body>
+<header>
+	<nav>		
+		<div class="menu large-menu">	
+			<div class="top-menu">
+				<nav>
+					<ul>
+						<li><a href="#">Home</a></li>
+						<li><a href="#">More</a></li>
+						<li><a href="#">About</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="bottom-menu">
+			<nav>
+				<a href="#" class="logo">
+					<img src="./images/mm-min.jpg">
+				</a>
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">More</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">News</a></li>
+				</ul>
+			</nav>
+		</div>
+	</nav>
+	<div class="img-search">
+		<div class="search">
+			<form>
+				<input type="text" placeholder="Find a Image">
+				<input type="submit" value="Search" class="search-input">
+			</form>
+		</div>
+		<img class="main-img" src="./images/mm-max.jpg">
+	</div>
+	<div class="flip-tab"><h3>Look Down Here</h3></div>
+	<div class="teasers">
+		<div class="teaser teaser1">
+			<h3>The First Law of Robotics</h3>
+			<p>2015年是世界反法西斯战争暨中国抗日战争胜利70周年。中国人民抗日战争是世界反法西斯战争的重要组成部分，作为世界反法西斯战争的东方主战场，中国战场爆发时间最早、历时最长。中国人民抗日战争坚定了盟国与法西斯作战的信心，推动了世界反法西斯统一战线的形成，中国人民也为此付出了巨大的民族牺牲。</p>
+		</div>
+		<div class="teaser teaser2">
+			<h3>The Second Law of Robotics</h3>
+			<p>2015年是世界反法西斯战争暨中国抗日战争胜利70周年。中国人民抗日战争是世界反法西斯战争的重要组成部分，作为世界反法西斯战争的东方主战场，中国战场爆发时间最早、历时最长。中国人民抗日战争坚定了盟国与法西斯作战的信心，推动了世界反法西斯统一战线的形成，中国人民也为此付出了巨大的民族牺牲。</p>
+		</div>
+		<div class="teaser teaser3">
+			<h3>The Third Law of Robotics</h3>
+			<p>2015年是世界反法西斯战争暨中国抗日战争胜利70周年。中国人民抗日战争是世界反法西斯战争的重要组成部分，作为世界反法西斯战争的东方主战场，中国战场爆发时间最早、历时最长。中国人民抗日战争坚定了盟国与法西斯作战的信心，推动了世界反法西斯统一战线的形成，中国人民也为此付出了巨大的民族牺牲。</p>
+		</div>
+	</div>
+</header>
+<div class="content" role="main">
+	<div class="contact-us">
+		<div class="form-wrap">
+			<legend>Find a Robot</legend>
+			<form>
+				<input type="text" placeholder="Robot Search">
+				<input type="submit" value="Search" class="search-input">
+			</form>
+		</div>
+		<h4>Search or Like Us Locally</h4>
+		<ul class="local-like">
+			<li><a href="#">San Francisco</a><a href="#">Like</a></li>
+			<li><a href="#">Los Angeles</a><a href="#">Like</a></li>
+			<li><a href="#">Houston</a><a href="#">Like</a></li>
+			<li><a href="#">Austin</a><a href="#">Like</a></li>
+		</ul>
+	</div>
+	<div class="cities">
+	<p>作为世界反法西斯战争的东方主战场，中国战场爆发时间最早、历时最长。中国人民抗日战争坚定了盟国与法西斯作战的信心，推动了世界反法西斯统一战线的形成，中国人民也为此付出了巨大的民族牺牲。</p></div>
+</div>
+<!-- @Deng Huiquan -->
+<footer>
+<div class="footer-wrap">
+	<div class="footer-1 footer-third">
+		<ul>
+			<li><span class=""><a href="#">FaceBook</a></span></li>
+			<li><span class=""><a href="#">Google</a></span></li>
+			<li><span class=""><a href="#">Twitter</a></span></li>
+		</ul>
+	</div>
+	<div class="footer-2 footer-third">
+		<ul>
+			<li><span class=""><a href="#">Sina WeiBlog</a></span></li>
+			<li><span class=""><a href="#">Tencent Wechat</a></span></li>
+			<li><span class=""><a href="#">QQ Space</a></span></li>
+		</ul>
+	</div>
+	<div class="footer-3 footer-third">
+		<ul>
+			<li><span class=""><a href="#">Baidu</a></span></li>
+			<li><span class=""><a href="#">Sougou</a></span></li>
+			<li><span class=""><a href="#">奇虎360</a></span></li>
+		</ul>
+	</div>
+</div>
+<span class="CopyRight"><a href="mailto:denghuiquan@foxmail.com">@Deng Huiquan</a></span>
+</footer>
+</body>
+</html>
